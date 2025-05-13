@@ -3,9 +3,165 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Western Jewellers - Account Deletion Request</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .company-name {
+            color: #c4a35a;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #c4a35a;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #b38f4a;
+        }
+
+        .message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
   </head>
   <body>
-    <h1>Hellow</h1>
+    <div class="container">
+        <div class="company-name">Western Jewellers</div>
+        <h1>Account Deletion Request</h1>
+        <form id="deleteAccountForm">
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" name="mobile" required 
+                       placeholder="Enter your mobile number">
+                <div class="error" id="mobileError">Please enter a valid mobile number</div>
+            </div>
+            <div class="form-group">
+                <label for="reason">Reason for Deletion:</label>
+                <textarea id="reason" name="reason" required 
+                          placeholder="Please tell us why you want to delete your account"></textarea>
+                <div class="error" id="reasonError">Please provide a reason for account deletion</div>
+            </div>
+            <button type="submit">Submit Deletion Request</button>
+        </form>
+        <div class="message" id="successMessage">
+            Your request will be processed within 48 hours. Thank you for your patience.
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('deleteAccountForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const mobile = document.getElementById('mobile').value;
+            const reason = document.getElementById('reason').value;
+            let isValid = true;
+
+            // Reset error messages
+            document.getElementById('mobileError').style.display = 'none';
+            document.getElementById('reasonError').style.display = 'none';
+
+            // Validate mobile number (just check if it's not empty)
+            if (mobile.trim() === '') {
+                document.getElementById('mobileError').style.display = 'block';
+                isValid = false;
+            }
+
+            // Validate reason
+            if (reason.trim().length < 10) {
+                document.getElementById('reasonError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Hide the form
+                this.style.display = 'none';
+                
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // In a real application, you would send this data to your server here
+                console.log('Form submitted:', { mobile, reason });
+            }
+        });
+    </script>
   </body>
 </html>
